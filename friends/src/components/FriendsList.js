@@ -1,28 +1,30 @@
-import React, { useState, useEffect } from 'react'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux';
+import { getFriends } from '../actions';
 
-import { axiosWithAuth } from '../utils/axiosWithAuth';
-
-const FriendsList = () => {
-    const [friends, setFriends] = useState([]);
-
-    useEffect(() => {
-        getFriends()
-    }, []);
-
-    const getFriends = () => {
-        axiosWithAuth()
-            .get('/friends')
-            .then(res => setFriends(res.data))
-            .catch(err => console.log(err))
-    };
-
+const FriendsList = ({ friends, getFriends, history, isFetching }) => {
     const logout = () => {
         localStorage.clear();
-        window.location.reload();
+        history.push('/login');
     };
+
+    const toAddFriend = () => {
+        history.push('/add-friend');
+    };
+
+    useEffect(() => {
+        getFriends();
+    }, [getFriends]);
+
+    if (isFetching) {
+        return <h3>Retrieving friends...</h3>;
+    }
+
+    console.log(friends);
 
     return (
         <div>
+            <button onClick={toAddFriend}>ADD UR FRIEND :)</button>
             <h1>Friends! IF YOU HAVE ANY LOL</h1>
             {friends.map(friend => (
                 <p>{friend.name}</p>
@@ -30,6 +32,17 @@ const FriendsList = () => {
             <button onClick={logout}>Log Out</button>
         </div>
     );
-}
+};
 
-export default FriendsList;
+const mapStateToProps = state => {
+    return {
+      friends: state.friends,
+      isFetching: state.isFetching,
+      error: state.error
+    };
+  };
+  
+  export default connect(
+    mapStateToProps,
+    { getFriends }
+  )(FriendsList);
