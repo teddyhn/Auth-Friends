@@ -2,12 +2,11 @@ import React, { useEffect } from 'react'
 import { connect } from 'react-redux';
 import { getFriends } from '../actions';
 
-const FriendsList = ({ friends, getFriends, history, isFetching }) => {
-    const logout = () => {
-        localStorage.clear();
-        history.push('/login');
-    };
+import FriendCard from './FriendCard';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Spinner from 'react-bootstrap/Spinner';
 
+const FriendsList = ({ friends, getFriends, history, isFetching }) => {
     const toAddFriend = () => {
         history.push('/add-friend');
     };
@@ -17,19 +16,21 @@ const FriendsList = ({ friends, getFriends, history, isFetching }) => {
     }, [getFriends]);
 
     if (isFetching) {
-        return <h3>Retrieving friends...</h3>;
+        return (
+            <Spinner animation="border" role="status">
+                <span className="sr-only">Loading...</span>
+            </Spinner>
+        );
     }
 
-    console.log(friends);
-
     return (
-        <div>
-            <button onClick={toAddFriend}>ADD UR FRIEND :)</button>
+        <div className="friends-list">
             <h1>Friends! IF YOU HAVE ANY LOL</h1>
-            {friends.map(friend => (
-                <p>{friend.name}</p>
-            ))}
-            <button onClick={logout}>Log Out</button>
+            <CardDeck>
+                {friends.map(friend => (
+                    <FriendCard key={friend.id} friend={friend} />
+                ))}
+            </CardDeck>
         </div>
     );
 };

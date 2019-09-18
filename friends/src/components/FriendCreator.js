@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
 import { connect } from 'react-redux';
+import Form from 'react-bootstrap/Form';
+import Button from 'react-bootstrap/Button';
 
 import { axiosWithAuth } from '../utils/axiosWithAuth';
 
-const FriendCreator = ({ friends, history }) => {
+const FriendCreator = ({ history }) => {
     const [newFriend, setNewFriend] = useState({
         name: '',
         age: '',
@@ -18,7 +20,6 @@ const FriendCreator = ({ friends, history }) => {
         evt.preventDefault();
         const newFriendToAdd = {
             ...newFriend,
-            id: friends[friends.length - 1].id + 1,
             age: parseInt(newFriend.age),
         };
         axiosWithAuth()
@@ -26,32 +27,43 @@ const FriendCreator = ({ friends, history }) => {
         history.push('/friends');
     }
 
-    console.log(friends);
-
     return (
-        <div>
+        <div className="add-friend">
             <h1>Add a friend! (you're not fooling anyone though...)</h1>
-            <form onSubmit={createFriend}>
-                Name:
-                <input
-                    type="text"
-                    name="name"
-                    value={newFriend.name}
-                    onChange={evt => handleChange(evt)} />
-                Age:
-                <input
-                    type="number"
-                    name="age"
-                    value={newFriend.age}
-                    onChange={evt => handleChange(evt)} />
-                Email:
-                <input
-                    type="email"
-                    name="email"
-                    value={newFriend.email}
-                    onChange={evt => handleChange(evt)} />
-                <button>Submit</button>
-            </form>
+            <Form className="react-bootstrap-form" onSubmit={createFriend}>
+                <Form.Group controlId="formBasicName">
+                    <Form.Label>Name</Form.Label>
+                    <Form.Control 
+                        type="text"
+                        name="name"
+                        value={newFriend.name}
+                        onChange={evt => handleChange(evt)}
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicAge">
+                    <Form.Label>Age</Form.Label>
+                    <Form.Control 
+                        type="number"
+                        name="age"
+                        value={newFriend.age}
+                        onChange={evt => handleChange(evt)} 
+                    />
+                </Form.Group>
+
+                <Form.Group controlId="formBasicEmail">
+                    <Form.Label>Email</Form.Label>
+                    <Form.Control 
+                        type="email"
+                        name="email"
+                        value={newFriend.email}
+                        onChange={evt => handleChange(evt)}
+                    />
+                </Form.Group>
+                <Button variant="primary" type="submit">
+                    Submit
+                </Button>
+            </Form>
         </div>
     )
 };

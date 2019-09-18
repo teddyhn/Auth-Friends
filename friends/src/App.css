@@ -1,33 +1,46 @@
-.App {
+h1 {
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 40vmin;
-  pointer-events: none;
+.react-bootstrap-form {
+  margin: auto;
+  width: 25vw;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.friends-list, .add-friend, .login-page {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: column;
+          flex-flow: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 1rem 0;
 }
 
-.App-link {
-  color: #61dafb;
+.card {
+  min-width: 18rem;
+  max-width: 18rem;
+  margin: 1rem 0;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card-deck {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  width: 80vw;
 }
+
+.spinner-border {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+}
+/*# sourceMappingURL=App.css.map */
