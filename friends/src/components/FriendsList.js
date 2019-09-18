@@ -6,20 +6,20 @@ import FriendCard from './FriendCard';
 import CardDeck from 'react-bootstrap/CardDeck';
 import Spinner from 'react-bootstrap/Spinner';
 
-const FriendsList = ({ friends, getFriends, history, isFetching }) => {
-    const toAddFriend = () => {
-        history.push('/add-friend');
-    };
-
+const FriendsList = ({ friends, getFriends, isFetching }) => {
+    
     useEffect(() => {
         getFriends();
     }, [getFriends]);
 
     if (isFetching) {
         return (
-            <Spinner animation="border" role="status">
-                <span className="sr-only">Loading...</span>
-            </Spinner>
+            <div className="friends-list">
+                <h1>Friends! IF YOU HAVE ANY LOL</h1>
+                <Spinner animation="border" role="status">
+                    <span className="sr-only">Loading...</span>
+                </Spinner>
+            </div>
         );
     }
 
